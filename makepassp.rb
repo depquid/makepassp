@@ -1,8 +1,22 @@
+require 'optparse'
 require 'securerandom'
 
+# Some defaults
 dict_file = '/usr/share/dict/words'
-max_word_length = 12
-power = 4
+max_word_length = 7
+power = 5
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: ruby $0 [options]"
+
+  opts.on("-lLENGTH", "--max-word-length LENGTH", Integer, "Maximum length of each word") do |length|
+    max_word_length = length
+  end
+
+  opts.on("-wCOUNT", "--word-count COUNT", Integer, "Number of words to generate") do |count|
+    power = count
+  end
+end.parse!
 
 words = File.read(dict_file).split /\n/
 
