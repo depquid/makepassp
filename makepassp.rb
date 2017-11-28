@@ -27,9 +27,12 @@ words.select! do |word|
 end
 
 word_count = words.count
+entropy_bits = Math.log2(word_count ** power)
 
 puts "Accepted Word Count: \t#{word_count}"
-puts "Bits of Entropy: \t#{Math.log2(word_count ** power)}"
+puts "Bits of Entropy: \t#{entropy_bits}"
+
+puts "\nStronger than password of #{Math.log(2**entropy_bits, 95).floor} random typeable ASCII characters or #{Math.log(2**entropy_bits, 36).floor} random lowercase alphanum characters"
 
 print "\nPassphrase: \t\t"
 puts power.times.map { words[SecureRandom.random_number word_count] } * ' '
